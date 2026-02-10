@@ -14,7 +14,7 @@ import {
   CircularProgress
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import axios from '../api/axios';
+import authService from '../api/authService';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -94,33 +94,23 @@ const Login = () => {
     setLoading(true);
     
     try {
-      // Make API call to login endpoint
-      const response = await axios.post('/api/auth/login', {
+      // Use authService to login
+      const response = await authService.login({
         email: formData.email,
         password: formData.password
       });
       
-      // Store JWT token in localStorage
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        
-        // Optionally store user data
-        if (response.data.user) {
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-        }
-        
-        // Show success message
-        setSnackbar({
-          open: true,
-          message: 'Login successful! Redirecting...',
-          severity: 'success'
-        });
-        
-        // Redirect to dashboard after a short delay
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 1000);
-      }
+      // Show success message
+      setSnackbar({
+        open: true,
+        message: 'Login successful! Redirecting...',
+        severity: 'success'
+      });
+      
+      // Redirect to dashboard after a short delay
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1000);
     } catch (error) {
       // Handle error responses
       const errorMessage = error.response?.data?.message 

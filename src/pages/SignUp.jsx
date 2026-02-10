@@ -14,7 +14,7 @@ import {
   CircularProgress
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import axios from '../api/axios';
+import authService from '../api/authService';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -116,8 +116,8 @@ const SignUp = () => {
     setLoading(true);
     
     try {
-      // Make API call to register endpoint
-      const response = await axios.post('/api/auth/register', {
+      // Use authService to register
+      const response = await authService.register({
         name: formData.name,
         email: formData.email,
         password: formData.password
@@ -126,7 +126,7 @@ const SignUp = () => {
       // Show success message
       setSnackbar({
         open: true,
-        message: response.data.message || 'Account created successfully! Redirecting to login...',
+        message: response.message || 'Account created successfully! Redirecting to login...',
         severity: 'success'
       });
       
