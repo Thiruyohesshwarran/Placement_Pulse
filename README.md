@@ -1,4 +1,4 @@
-Placement Pulse 🚀
+**Placement Pulse 🚀**
 
 Placement Pulse is a full-stack placement tracking platform designed to help students manage job applications, monitor interview progress, and analyze placement performance through a clean and intuitive dashboard.
 
